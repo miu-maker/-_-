@@ -1,0 +1,17 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Greeting
+from django.utils import timezone
+
+def hello(request, name):
+    Greeting.objects.create(name=name)
+    return HttpResponse(f"Hello, {name}!")
+
+def stats(request):
+    total_greetings = Greeting.objects.count()
+    return HttpResponse(f"Total greetings: {total_greetings}")
+
+def name_stats(request, name):
+    greetings = Greeting.objects.filter(name=name).order_by('-timestamp')
+    stats = "\n".join([f"{greeting.timestamp}: Hello, {greeting.name}!" for greeting in greetings])
+    return HttpResponse(stats)
