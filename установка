@@ -1,0 +1,4 @@
+pip install Django
+django-admin startproject greetings_project
+cd greetings_project
+python manage.py startapp greetings
